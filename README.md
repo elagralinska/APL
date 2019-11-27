@@ -21,7 +21,7 @@
   
   
   
-  To run Blablabla open RStudio and type following commands:
+  To run Blablabla open **RStudio** and type following commands:
   1. Load shiny library:
  ```
       library(shiny)
@@ -32,8 +32,19 @@
       runGitHub("associationplots","elagralinska")
  ```
   
+  or use an alternative way:
+  1. download all files from the GitHub repository to your local 
   
-  
+  1. Create a new directory **"Blablabla"** in your working directory
+  2. Download all files and directories from our GitHub repository to your newly created directory
+  3. Open RStudio and load shiny library:
+  ```
+      library(shiny)
+  ```
+  4. Run blablabla
+  ```
+      runApp("blablabla")
+  ```
   
   ## Demo
   
