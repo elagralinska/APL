@@ -1,5 +1,6 @@
-<LOGO>
-# <NAME OF THE TOOL>
+***LOGO***
+
+  # ***NAME OF THE TOOL***
   Finding condition-specific genes using the Association Plots.
   For more details, please see our tutorial.
   
@@ -23,12 +24,12 @@
   To run Blablabla open RStudio and type following commands:
   1. Load shiny library:
  ```
- library(shiny)
+      library(shiny)
  ```
  
  2. Run blablabla
  ```
- runGitHub("associationplots","elagralinska")
+      runGitHub("associationplots","elagralinska")
  ```
   
   
