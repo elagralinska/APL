@@ -16,9 +16,9 @@
   
   To run Blablabla open RStudio and type following commands:
   1. Load shiny library:
- '''
- > library(shiny)
- '''
+ 
+ <library(shiny)>
+ 
  
  2. Run blablabla
         > runGitHub("associationplots","elagralinska")
