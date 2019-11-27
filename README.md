@@ -2,6 +2,7 @@
 
   # ***NAME OF THE TOOL***
   Finding condition-specific genes using the Association Plots.
+  
   For more details, please see our tutorial.
   
   
@@ -40,7 +41,8 @@
       # run the tool from the working directory
       runApp("blablabla")
   ```
+  To start the analysis using **Blablabla** an input matrix in a tab-delimited .txt format has to be provided. The example of such file can be found **here**.
   
   ## Demo
   
-  
+  For demonstration purposes, 
