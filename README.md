@@ -13,16 +13,16 @@
   
   ## Installation and usage
   Blablabla can be run directly from RStudio. Before running the tool, make sure that following R packages are installed on your machine:
-  - shiny
-  - ggplot2
-  - plotly
-  - dplyr
-  - shinycssloaders
+  - `shiny`
+  - `ggplot2`
+  - `plotly`
+  - `dplyr`
+  - `shinycssloaders`
   
   
   
   To run Blablabla open **RStudio** and type following commands:
-   1. Load shiny library:
+   1. Load `shiny` library:
  ```R
       library(shiny)
  ```
