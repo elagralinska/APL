@@ -12,7 +12,7 @@
   
   
   ## Installation and usage
-  Blablabla can be run directly from RStudio. Before running the tool, make sure that following R packages are installed on your machine:
+  Blablabla can be run directly from R. Before running the tool, make sure that following R packages are installed on your machine:
   - `shiny`
   - `ggplot2`
   - `plotly`
@@ -21,7 +21,7 @@
   
   
   
-  To run Blablabla open **RStudio** and type following commands:
+  To run Blablabla open an R session and type following commands:
  ```R
       # load shiny library
       library(shiny)
@@ -31,7 +31,7 @@
  ```
  
   
-  Alternatively, you can first download the tool from our GitHub repository and then run the tool in RStudio. To do this, first create a new directory **"Blablabla"** on your machine and save all the files and directories from our GitHub repository in the newly created directory. Next, open RStudio and set **"Blablabla"** as your working directory. Now you can run the tool using following commands:
+  Alternatively, you can first download the tool from our GitHub repository and then run the tool in R. To do this, first create a new directory **"Blablabla"** on your machine and save all the files and directories from our GitHub repository in the newly created directory. Next, open an R session and set **"Blablabla"** as your working directory. Now you can run the tool using following commands:
   
   ```R
       # load shiny library
