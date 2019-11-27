@@ -23,18 +23,18 @@
   
   To run Blablabla open **RStudio** and type following commands:
    1. Load shiny library:
- ```
+ ```R
       library(shiny)
  ```
  
    2. Run blablabla
- ```
+ ```R
       runGitHub("associationplots","elagralinska")
  ```
   
   Alternatively, you can first download the tool from our GitHub repository and then run the tool in RStudio. To do this, first create a new directory **"Blablabla"** on your machine and save all the files and directories from our GitHub repository in the newly created directory. Next, open RStudio and set **"Blablabla"** as your working directory. Now you can run the tool using following commands:
   
-  ```
+  ```R
       library(shiny)
       runApp("blablabla")
   ```
