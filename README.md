@@ -14,12 +14,11 @@
   - dplyr
   - shinycssloaders
   
-  To run Blablabla:
-  1. Open RStudio
-  2. Load shiny library:
-  > library(shiny)
-  3. Run blablabla
-  > runGitHub("associationplots","elagralinska")
+  To run Blablabla open RStudio and type following commands:
+      1. Load shiny library:
+        > library(shiny)
+      2. Run blablabla
+        > runGitHub("associationplots","elagralinska")
   
   
   
