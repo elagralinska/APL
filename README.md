@@ -45,4 +45,4 @@
   
   ## Demo
   
-  For demonstration purposes, 
+  For demonstration purposes an example subset of GTEx data have been provided **here**. The provided file contains gene expression values across 22 distinct human tissues, 10 samples per each. To learn more how to analyze such data using **Blablabla** see our tutorial. 
