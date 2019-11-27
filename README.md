@@ -24,6 +24,7 @@
   To run Blablabla open **RStudio** and type following commands:
    1. Load `shiny` library:
  ```R
+      # load library
       library(shiny)
  ```
  
