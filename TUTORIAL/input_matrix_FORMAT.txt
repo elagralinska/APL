@@ -1,0 +1,9 @@
+gene.name	condition1	condition2	condition3	condition4
+GeneA	3.5	2	2.3	0
+GeneB	2	1.7	2.0	0
+GeneC	0	0	0	0
+GeneD	1.0	0	0	0
+GeneE	2	3	3	0
+GeneF	0	0	0	0
+GeneG	0	1	0	1
+GeneH	2	0	0	0
