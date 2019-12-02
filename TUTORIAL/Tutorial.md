@@ -9,8 +9,7 @@ Below we explain step-by-step how use the tool.
 
 ### Table of contents:
 
-
-    + [1.  Installation](#1--installation)
+  + [1.  Installation](#1--installation)
     + [2.  First steps](#2--first-steps)
       - [Data upload](#data-upload)
       - [Number of genes](#number-of-genes)
