@@ -10,19 +10,15 @@ Below we explain step-by-step how use the tool.
 ### Table of contents:
 
 
-  1.  [Installation](#settingup)
-  2.  [First steps](#settingup)
-      + [Data upload](#sub-heading)
-      + [Number of genes](#sub-heading)
-      + [Number of dimensions](#sub-heading)
-  3.  [2D- and 3D-representation of the data](#settingup)
-      + [2D plot](#sub-heading)
-      + [3D plot](#sub-heading)
-  4.  [Association Plots](#settingup)
-  5.  [Gene enrichment analysis](#settingup)
-  6.  [Final remarks](#settingup)
-
-
+    + [1.  Installation](#1--installation)
+    + [2.  First steps](#2--first-steps)
+      - [Data upload](#data-upload)
+      - [Number of genes](#number-of-genes)
+      - [Number of dimensions](#number-of-dimensions)
+    + [3.  2D- and 3D-representation of the data](#3--2d--and-3d-representation-of-the-data)
+    + [4.  Association Plots](#4--association-plots)
+    + [5.  Gene enrichment analysis](#5--gene-enrichment-analysis)
+    + [6.  Final remarks](#6--final-remarks)
 
 
 ### 1.  Installation
