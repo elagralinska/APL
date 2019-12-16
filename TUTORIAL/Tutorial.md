@@ -124,13 +124,9 @@ To conduct gene enrichment analysis in APL first make sure that in the field `"W
 
 After choosing the correct parameters the GO enrichment test will be conducted using the Kolmogorov-Smirnov test and the results will be displayed in the tab `"GSEA plot"` in two forms:
 
-- tabular
+- **tabular** - The generated table will contain top ten biological processes enriched among top 1000 condition-specific genes obtained from the Association Plot (or if the total number of genes used for generating the Association Plot was lower than 1000 - 25% of number of genes used for this analysis).
 
-The generated table will contain top ten biological processes enriched among top 1000 condition-specific genes obtained from the Association Plot (or if the total number of genes used for generating the Association Plot was lower than 1000 - 25% of number of genes used for this analysis).
-
-- graphical
-
-Another way of understanding the gene enrichment results is to investigate the distribution of the enriched GO terms over the entire GO graph. In APL, we use a function from `topGO` that allows on generating such subgraph. After running the gene enrichment test, the resulting subgraph will be displayed below the table. The nodes of the graph represent different GO terms (biological processes): the significant ones are presented in form of rectangles, whereas the others in form of ellipses. Moreover, depending on the relative significance of GO terms the nodes have different colors: dark red relates to the highest significance and light yellow - to the lowest. Additionally, the generated GO subgraph is automatically saved as a pdf file in the working directory under the name `"GSEA_classic_10_def.pdf"`.
+- **graphical** - Another way of understanding the gene enrichment results is to investigate the distribution of the enriched GO terms over the entire GO graph. In APL, we use a function from `topGO` that allows on generating such subgraph. After running the gene enrichment test, the resulting subgraph will be displayed below the table. The nodes of the graph represent different GO terms (biological processes): the significant ones are presented in form of rectangles, whereas the others in form of ellipses. Moreover, depending on the relative significance of GO terms the nodes have different colors: dark red relates to the highest significance and light yellow - to the lowest. Additionally, the generated GO subgraph is automatically saved as a pdf file in the working directory under the name `"GSEA_classic_10_def.pdf"`.
 For more details please see the documentation of the `topGO` package.
 
 
