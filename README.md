@@ -31,7 +31,7 @@
       # load shiny library
       library(shiny)
       
-      # run the tool from the working directory (please make sure that the folder "APL-master" is located in your working directory)
+      # run the tool (please make sure that the folder "APL-master" is located in your working directory)
       runApp("APL-master")
   ```
   
