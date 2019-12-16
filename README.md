@@ -19,15 +19,20 @@
   - `plotly`
   - `dplyr`
   - `shinycssloaders`
-  
-  To use APL we recommend to download all files from our GitHub repository and then run APL in R. To do this, first create a new directory `"APL"` on your machine and save all the files and directories from our GitHub repository in the newly created directory. Next, open an R session and set `"APL"` as your working directory. Now you can run the tool using following commands:
+  - `shinyjs`
+  - `topGO`
+  - `Rgraphviz`
+  - `org.Hs.eg.db`
+  - `org.Mm.eg.db`
+ 
+  To use APL we recommend first to download our GitHub repository to your working directory and unzip the downloaded file.  Next, to run the tool - open an R session and type following commands(before doing it please make sure that the folder "APL-master" is located in your working directory):
    
   ```R
       # load shiny library
       library(shiny)
       
       # run the tool from the working directory
-      runApp("APL")
+      runApp("APL-master")
   ```
   
   
