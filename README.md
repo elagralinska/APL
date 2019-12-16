@@ -25,13 +25,13 @@
   - `org.Hs.eg.db`
   - `org.Mm.eg.db`
  
-  To use APL we recommend first to download our GitHub repository to your working directory and unzip the downloaded file.  Next, to run the tool - open an R session and type following commands(before doing it please make sure that the folder "APL-master" is located in your working directory):
+  To use APL we recommend first to download our GitHub repository to your working directory and unzip the downloaded file.  Next, to run the tool - open an R session and type following commands:
    
   ```R
       # load shiny library
       library(shiny)
       
-      # run the tool from the working directory
+      # run the tool from the working directory (please make sure that the folder "APL-master" is located in your working directory)
       runApp("APL-master")
   ```
   
