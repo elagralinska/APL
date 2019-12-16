@@ -71,7 +71,7 @@ scree plot of the data enters the band of ranomized eigenvalues.
 4.  *"Scree plot of the real data"* - decision can be made based on the shape of the scree plot by reading the number of dimensions corresponding to the jump in the plot.
 
 
-In the example analysis presented in this tutorial the first three above listed methods gave following results: `31`, `21`, `25` dimensions. At the end `25` dimensions (number obtained using the "elbow rule") were chosen.
+In the example analysis presented in this tutorial the first three above listed methods gave following results: `31`, `21`, `26` dimensions. At the end `26` dimensions (number obtained using the "elbow rule") were chosen.
 Now, to continue with the analysis, please click on a blue button `"Start calculations!"`.
 
 ### 3.  2D- and 3D-representation of the data
@@ -129,7 +129,7 @@ Another way of understanding the gene enrichment results is to investigate the d
 For more details please see the documentation of the `topGO` package.
 
 
-For the demonstration purpose, the enrichment analysis in this tutorial was conducted for liver samples (IDs: `212,213,214,215,216,217,218,219,220,221` or cluster ID: `22` from [this](https://github.com/elagralinska/APL/blob/master/TUTORIAL/input_clusterAnnotation_DEMO.txt) cluster annotation file) using the human gene ontology file. The obtained results are shown below.
+For the demonstration purpose, the enrichment analysis in this tutorial was conducted for liver samples (IDs: `212,213,214,215,216,217,218,219,220,221` or cluster ID: `22` from [this](https://github.com/elagralinska/APL/blob/master/TUTORIAL/input_clusterAnnotation_DEMO.txt) cluster annotation file) using the human annotation file. The obtained results are shown below.
 
 ![Screenshot5](screenshots/Screenshot_5.png)
 
