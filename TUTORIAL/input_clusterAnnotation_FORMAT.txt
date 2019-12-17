@@ -1,0 +1,8 @@
+"GeneA","0"
+"GeneB","1"
+"GeneC","3"
+"GeneD","1"
+"GeneE","4"
+"GeneF","1"
+"GeneG","1"
+"GeneH","2"
