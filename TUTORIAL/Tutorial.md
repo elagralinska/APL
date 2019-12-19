@@ -120,7 +120,26 @@ Additionally, below the Association Plot a download button is located. Use it in
 ### 5.  Gene enrichment analysis
 APL allows also for enrichment analysis of the condition-specific genes for Gene Ontology terms. This part of the program is based on `topGO` - an R package that facilitates such type of analyses.
 
-To conduct gene enrichment analysis in APL first make sure that in the field `"Which conditions?"` the correct condition IDs are chosen or that the cluster annotation file is uploaded and the correct cluster IDs is selected. Next, in the field `"Annotation file"` in the side panel choose the correct gene ontology file (mouse or human) or provide the name of one of the Bioconductor AnnotationData Packages for another organism (look here: http://bioconductor.org/packages/3.10/data/annotation/ for the list of existing annotation packages). *(Important: when using a new annotation package, please make sure that it is installed on your machine before launching APL.)* Finally, in the selection box `"Gene ontology"` you can choose between the type of the gene ontology (BP - biological processes, CC - cellular components, MF - molecular function).
+To conduct gene enrichment analysis in APL first make sure that in the field `"Which conditions?"` the correct condition IDs are chosen or that the cluster annotation file is uploaded and the correct cluster IDs is selected. Next, in the field `"Annotation file"` in the side panel choose the correct gene ontology file (mouse or human) or provide the name of one of the Bioconductor AnnotationData Packages for another organism:
+- Anopheles `org.Ag.eg.db`
+- Bovine `org.Bt.eg.db`
+- Worm `org.Ce.eg.db`
+- Canine `org.Cf.eg.db`
+- Fly `org.Dm.eg.db`
+- Zebrafish `org.Dr.eg.db`
+- E coli strain K12 `org.EcK12.eg.db`
+- Chicken `org.Gg.eg.db`
+- Rhesus `org.Mmu.eg.db`
+- Malaria `org.Pf.plasmo.db`
+- Chimp `org.Pt.eg.db`
+- Rat `org.Rn.eg.db`
+- Yeast `org.Sc.sgd.db`
+- Pig `org.Ss.eg.db`
+- Xenopus `org.Xl.eg.db`
+
+Check [here](http://bioconductor.org/packages/3.10/data/annotation/) for the most recent list of existing annotation packages. *(Important: when using a new annotation package, please make sure that it is installed on your machine before launching APL.)* 
+
+Finally, in the selection box `"Gene ontology"` you can choose between the type of the gene ontology (BP - biological processes, CC - cellular components, MF - molecular function).
 
 After choosing the correct parameters the GO enrichment test will be conducted using the Kolmogorov-Smirnov test and the results will be displayed in the tab `"GSEA plot"` in two forms:
 
