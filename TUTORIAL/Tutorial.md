@@ -67,7 +67,7 @@ The implemented methods:
 1.  *”Average rule“* - retains those dimensions that explain more inertia than one dimension on average. Such average value is calculated by dividing 100% by the total number of columns from the input matrix.
 2.  *”80% rule“* - retains the minimum number of dimensions, which in total account for more than 80% of total variance in the data.
 3.  *”Elbow rule“* - is based on scree plots of randomized data. The dimension is read off from the point where the actual
-scree plot of the data enters the band of ranomized eigenvalues.
+scree plot of the data enters the band of randomized eigenvalues.
 4.  *"Scree plot of the real data"* - decision can be made based on the shape of the scree plot by reading the number of dimensions corresponding to the jump in the plot.
 
 
