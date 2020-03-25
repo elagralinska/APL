@@ -22,16 +22,15 @@ Below we explain step-by-step how to use the tool.
 
 ### 1.  Installation
 
-APL can be run directly from R. Before running the tool, make sure that following R packages are installed on your machine: `shiny`, `ggplot2`, `plotly`, `dplyr`, `shinycssloaders`, `shinyjs`, `topGO`, `Rgraphviz`, `org.Hs.eg.db`, `org.Mm.eg.db`. To launch APL we recommend first to download our GitHub repository to your working directory and unzip the downloaded file. Next, to run the tool - open an R session and type following commands:
+APL can be run directly from R. Before running the tool, make sure that following R packages are installed on your machine: `shiny`, `ggplot2`, `plotly`, `dplyr`, `shinycssloaders`, `shinyjs`, `topGO`, `Rgraphviz`, `org.Hs.eg.db`, `org.Mm.eg.db`. To download and launch APL we recommend using following commands in R session:
+
+ ```R
+     # load shiny library
+     library(shiny)
    
-  ```R
-      # load shiny library
-      library(shiny)
-      
-      # run the tool (please make sure that the folder "APL-master" is located in your working directory)
-      runApp("APL-master")
+     # run the tool
+     runGitHub("APL","elagralinska")  
   ```
-Instead of downloading the entire GitHub repository you can also first create a new directory `"APL-master"` on your machine, and next, save there all files and folders from our GitHub repository that are required to launch APL (`app.R`, `img_folder`). Make sure that the directory `"APL-master"` is located in the working directory in your R session.
 
 For further alternatives please see the [documentation](https://github.com/elagralinska/associationplots/blob/master/README.md).
 
