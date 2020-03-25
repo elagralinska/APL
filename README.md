@@ -34,7 +34,8 @@
       # run the tool (please make sure that the folder "APL-master" is located in your working directory)
       runApp("APL-master")
   ```
-  
+  Instead of downloading the entire GitHub repository you can also first create a new directory `"APL-master"` on your machine, and next, save there all files and folders from our GitHub repository that are required to launch APL (`app.R`, `img_folder`). Make sure that the directory `"APL-master"` is located in the working directory in your R session.
+
   
   Alternatively, you can download and launch APL using following commands in R:
  
