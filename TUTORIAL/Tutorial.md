@@ -3,7 +3,7 @@
 
 ### Introduction
 
-**APL** is an interactive application that can be used for finding condition-specific genes in complex data sets. After uploading the input matrix and choosing the parameters, the tool generates the 2D- and 3D-representation of the data, as well as the Association Plot for any selected condition or set of conditions. To identify the condition-specific genes one can zoom in the generated Association Plot and click the mouse over the genes presented in the plot. The tool allows also for enrichment analysis of the condition-specific genes for Gene Ontology terms (based on R package `topGO`). 
+**APL** is an interactive application that can be used for data exploration as well as finding condition-specific genes in complex data sets. After uploading the input matrix and choosing the parameters, the tool generates the 2D- and 3D-representation of the data, as well as the Association Plot for any selected condition or set of conditions. To identify the condition-specific genes one can zoom in the generated Association Plot and click the mouse over the genes presented in the plot. The tool allows also for enrichment analysis of the condition-specific genes for Gene Ontology terms (based on R package `topGO`). 
 
 Below we explain step-by-step how to use the tool.
 
@@ -70,8 +70,8 @@ scree plot of the data enters the band of randomized eigenvalues.
 4.  *"Scree plot of the real data"* - decision can be made based on the shape of the scree plot by reading the number of dimensions corresponding to the jump in the plot.
 
 
-In the example analysis presented in this tutorial the first three above listed methods gave following results: `31`, `21`, `26` dimensions. At the end `26` dimensions (number obtained using the "elbow rule") were chosen.
-Now, to continue with the analysis, please click on a blue button `"Start calculations!"`.
+In the example analysis presented in this tutorial the first three above listed methods gave following results: `31`, `21`, `25` dimensions. At the end `25` dimensions (number obtained using the "elbow rule") were chosen.
+Now, to continue with the analysis, please click on a blue button `"Start calculations"`.
 
 ### 3.  2D- and 3D-representation of the data
 Based on the input matrix provided by the user APL generates 2D- and 3D- representation of the data. The generated plots are interactive and will be displayed in the tabs `"2D plot"` and `"3D plot"`. Below you can see the screenshot of a 2D plot generated for demo data.
@@ -109,7 +109,9 @@ In APL, after uploading the cluster annotation file a selection box with all clu
 
 
 
-The Association Plots can be used for finding condition-specific genes. The interpretation of such plots is simple: The farther out to the right a genes lies in the plot, the more associated it is to the given set of conditions. For the demonstration purposes the Association Plot in this tutorial was generated for liver samples (condition IDs: `212,213,214,215,216,217,218,219,220,221` or cluster ID: `22` from [this](https://github.com/elagralinska/APL/blob/master/TUTORIAL/input_clusterAnnotation_DEMO.txt) cluster annotation file) and can be seen below. Additionally, genes known from the literature to be highly expressed in liver are colored in red (by typing the gene names `F9,CFHR2,HPX,SPP2,MBL2,FGA,HAO1,APOH,F2,C9` in the field `Genes to highlight`). As expected, all of them are located in the right tail of the plot. To obtain the bar plot of gene expression values across all conditions, click a mouse over a given gene. The bar plot will show up below the Association Plot. 
+The Association Plots can be used for finding condition-specific genes. The interpretation of such plots is simple: The farther out to the right a genes lies in the plot, the more associated it is to the given set of conditions. For the demonstration purposes the Association Plot in this tutorial was generated for liver samples (condition IDs: `212,213,214,215,216,217,218,219,220,221` or cluster ID: `22` from [this](https://github.com/elagralinska/APL/blob/master/TUTORIAL/input_clusterAnnotation_DEMO.txt) cluster annotation file) and can be seen below in form of red crosses. Additionally, genes known from the literature to be highly expressed in liver are colored in red (by typing the gene names `F9,CFHR2,HPX,SPP2,MBL2,FGA,HAO1,APOH,F2,C9` in the field `Genes to highlight`). As expected, all of them are located in the right tail of the plot. The select box below the Association Plot can be used to show or hide the location of the conditions in the plot. Red crosses correspond then to the chosen conditions that were used for generating the plot. Green crosses illustrate all other conditions.
+
+To obtain the bar plot of gene expression values across all conditions, click a mouse over a given gene. The bar plot will show up below the Association Plot. 
 
 
 ![Screenshot4](screenshots/Screenshot_4.png)
