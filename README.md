@@ -1,7 +1,7 @@
 ![Logo](https://github.com/elagralinska/APL/blob/master/img_folder/APL_logo.png)
 
   # APL
-  Finding condition-specific genes using the Association Plots.
+  For data exploration and finding condition-specific genes using the Association Plots.
   
   For more details, please see our [tutorial](https://github.com/elagralinska/associationplots/blob/master/TUTORIAL/Tutorial.md).
   
