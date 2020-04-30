@@ -561,7 +561,7 @@ server <- function(input, output,session) {
 
 		# get indices of highlighted genes of the used_gene_names_list
 		hl_genes <- reactive({
-			sort(match(markers(), used_gene_names_list()))
+			sort(which(used_gene_names_list() %in% markers()))
 		})
 
 
