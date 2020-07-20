@@ -234,7 +234,7 @@ server <- function(input, output,session) {
 	# conduct SVD
 	SVD <- reactive({
 		req(input$dataIn)
-		validate(need(length(non_zero_index()) > input$num_genes , "Too high number of genes selected for further analysis! To continue, reduce the number of genes in the side panel!")) 
+		validate(need( (length(non_zero_index()) + 1) > input$num_genes , "Too high number of genes selected for further analysis! To continue, reduce the number of genes in the side panel!")) 
 		
 	    P <- expr_data()/sum(expr_data())         # proportions matrix
 		p_i_plus <- rowSums(P)                    # row masses
@@ -372,7 +372,7 @@ server <- function(input, output,session) {
 	output$number_of_genes <- renderUI({
 		tagList(tags$p(
 			HTML('The uploaded file contains expression data of'), total_genes(), 
-			HTML('genes. '), length(non_zero_index())-1, 
+			HTML('genes. '), length(non_zero_index()), 
 			HTML('of them are expressed in at least one sample.') 
 		))
 	})
