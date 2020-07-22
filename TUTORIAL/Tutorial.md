@@ -22,7 +22,7 @@ Below we explain step-by-step how to use the tool.
 
 ### 1.  Installation
 
-APL can be run directly from R. Before running the tool, make sure that following R packages are installed on your machine: `shiny`, `ggplot2`, `plotly`, `dplyr`, `shinycssloaders`, `shinyjs`, `topGO`, `Rgraphviz`, `org.Hs.eg.db`, `org.Mm.eg.db`. To download and launch APL we recommend using following commands in R session:
+APL can be run directly from R. Before running the tool, make sure that following R packages are installed on your machine: `shiny`, `reticulate`, `ggplot2`, `plotly`, `dplyr`, `shinycssloaders`, `shinyjs`, `topGO`, `Rgraphviz`, `org.Hs.eg.db`, `org.Mm.eg.db`. To download and launch APL we recommend using following commands in R session:
 
  ```R
      # load shiny library
