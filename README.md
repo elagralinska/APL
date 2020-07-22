@@ -15,6 +15,7 @@
   ## Installation and usage
   APL can be run directly from R. Before running the tool, make sure that following R packages are installed on your machine:
   - `shiny`
+  - `reticulate`
   - `ggplot2`
   - `plotly`
   - `dplyr`
