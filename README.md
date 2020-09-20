@@ -13,7 +13,7 @@
   
   
   ## Installation and usage
-  APL can be run directly from R, however it also requires Python. Before running the tool, please make sure that Python is installed on your machine and that you have installed following R packages:
+  APL can be run directly from R, however it also requires Python. Before running the tool, please make sure that **Python** is installed on your machine and that you have installed following **R packages**:
   - `shiny`
   - `reticulate`
   - `ggplot2`
