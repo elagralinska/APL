@@ -13,7 +13,7 @@
   
   
   ## Installation and usage
-  APL can be run directly from R, however it also requires Python. Before running the tool, please make sure that **Python** is installed on your machine and that you have installed following **R packages**:
+  APL can be run directly from R, however it also requires Python. Before running the tool, please make sure that that the following **R packages** are installed on your machine:
   - `shiny`
   - `reticulate`
   - `ggplot2`
@@ -25,6 +25,9 @@
   - `Rgraphviz`
   - `org.Hs.eg.db`
   - `org.Mm.eg.db`
+ Also, please make sure that **Python** and two following Python libraries are installed on your machine:
+  - `numpy`
+  - `torch`
  
   To use APL we recommend first to download our GitHub repository to your working directory and unzip the downloaded file.  Next, to run the tool - open an R session and type following commands:
    
