@@ -22,7 +22,9 @@ Below we explain step-by-step how to use the tool.
 
 ### 1.  Installation
 
-APL can be run directly from R. Before running the tool, make sure that following R packages are installed on your machine: `shiny`, `reticulate`, `ggplot2`, `plotly`, `dplyr`, `shinycssloaders`, `shinyjs`, `topGO`, `Rgraphviz`, `org.Hs.eg.db`, `org.Mm.eg.db`. To download and launch APL we recommend using following commands in R session:
+APL can be run directly from **R**, however it requires also **Python**. Before running the tool, please make sure that following **R packages** are installed on your machine: `shiny`, `reticulate`, `ggplot2`, `plotly`, `dplyr`, `shinycssloaders`, `shinyjs`, `topGO`, `Rgraphviz`, `org.Hs.eg.db`, `org.Mm.eg.db`. Also, please make sure that Python is installed on your machine together with following **Python libraries**: `numpy`, `torch`. 
+
+To download and launch APL we recommend using following commands in R session:
 
  ```R
      # load shiny library
@@ -116,7 +118,7 @@ To obtain the bar plot of gene expression values across all conditions, click a 
 
 ![Screenshot4](screenshots/Screenshot_4.png)
 
-Additionally, below the Association Plot a download button is located. Use it in order to download the list of the genes ranked according to their specificity for the given subset of conditions.
+Additionally, below the Association Plot a download button is located. Use it in order to download the list of the candidate marker genes ranked according to their specificity for the given subset of conditions.
 
 ### 5.  Gene enrichment analysis
 APL allows also for enrichment analysis of the condition-specific genes for Gene Ontology terms. This part of the program is based on `topGO` - an R package that facilitates such type of analyses.
@@ -158,5 +160,7 @@ For the demonstration purpose, the enrichment analysis in this tutorial was cond
 ### 6.  Final remarks
 - To save the state of APL application and get a URL, which will restore the APL session with that state, please use the button `"Bookmarking..."` at the bottom of the side panel.
 - The plots in APL are generated using the `plotly` package. To save a plot, use the camera icon in the modebar.
+
+- In case of questions, please do not hesitate to contact us: gralinska@molgen.mpg.de
 
 
