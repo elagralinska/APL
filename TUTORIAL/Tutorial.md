@@ -22,7 +22,7 @@ Below we explain step-by-step how to use the tool.
 
 ### 1.  Installation
 
-APL can be run directly from **R**, however it requires also **Python**. Before running the tool, please make sure that following **R packages** are installed on your machine: `shiny`, `reticulate`, `ggplot2`, `plotly`, `dplyr`, `shinycssloaders`, `shinyjs`, `topGO`, `Rgraphviz`, `org.Hs.eg.db`, `org.Mm.eg.db`. Also, please make sure that Python is installed on your machine together with following **Python libraries**: `numpy`, `torch`. 
+APL can be run directly from **R**, however it also requires **Python**. Before running the tool, please make sure that following **R packages** are installed on your machine: `shiny`, `reticulate`, `ggplot2`, `plotly`, `dplyr`, `shinycssloaders`, `shinyjs`, `topGO`, `Rgraphviz`, `org.Hs.eg.db`, `org.Mm.eg.db`. Also, please make sure that Python is installed on your machine together with following **Python libraries**: `numpy`, `torch`. 
 
 To download and launch APL we recommend using following commands in R session:
 
