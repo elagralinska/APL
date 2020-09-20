@@ -6,6 +6,8 @@ library(dplyr)
 library(shinycssloaders)
 library(Rgraphviz)
 library(shinyjs)
+library(reticulate)
+source_python('python_svd.py')
 
 
 # -------------------------------------------------------------------------------------------   
@@ -155,6 +157,7 @@ server <- function(input, output,session) {
 
 	# calculate total number of genes in the input matrix
 	total_genes <- reactive({
+		req(input$dataIn)
 		nrow(in_table1())
 	})
 	
@@ -234,7 +237,7 @@ server <- function(input, output,session) {
 	# conduct SVD
 	SVD <- reactive({
 		req(input$dataIn)
-		validate(need( (length(non_zero_index()) + 1) > input$num_genes , "Too high number of genes selected for further analysis! To continue, reduce the number of genes in the side panel!")) 
+		validate(need( (length(non_zero_index()) +1) > input$num_genes , "Too high number of genes selected for further analysis! To continue, reduce the number of genes in the side panel!")) 
 		
 	    P <- expr_data()/sum(expr_data())         # proportions matrix
 		p_i_plus <- rowSums(P)                    # row masses
@@ -243,21 +246,24 @@ server <- function(input, output,session) {
 		E <- p_i_plus %o% p_plus_j      # expected proportions
 		Z <-  (P - E) / sqrt(E)         # standardized residuals
 		Z[is.nan(Z)] <- 0
-		SVD <- svd(Z)
+		#SVD <- svd(Z)
+		SVD <- svd_torch(Z)
 	})
 
 	# based on conducted SVD - calculate eigenvalues and explained inertia (explained by each dimension, sorted in descending order)
 	expl_inertia <- reactive({
 		req(input$dataIn)
 
-		ev <- SVD()$d^2							# eigenvalues = singularvalues^2
+		#ev <- SVD()$d^2							# eigenvalues = singularvalues^2
+		ev <- SVD()[[2]]^2							# eigenvalues = singularvalues^2
 		expl_inertia <- (ev/sum(ev)) *100		# explained inertia (%)
 	})
 	
 	# calculate maximal number of dimensions in this analysis
 	max_num_dims <- reactive({
 		req(input$dataIn)
-		max_num_dims <- length(SVD()$d)			# maximal number of dimensions
+		#max_num_dims <- length(SVD()$d)			# maximal number of dimensions
+		max_num_dims <- length(SVD()[[2]])			# maximal number of dimensions
 	})	  
 
 	# how much inertia is explained on average by one dimension?
@@ -321,9 +327,11 @@ server <- function(input, output,session) {
 				
 			art_Z <-  (art_P - art_E) / sqrt(art_E)           # standardized residuals
 			art_Z[is.nan(art_Z)] <- 0
-			art_SVD <- svd(art_Z)
+		#	art_SVD <- svd(art_Z)
+			art_SVD <- svd_torch(art_Z)
 				
-			art_sv <- art_SVD$d
+		#	art_sv <- art_SVD$d
+			art_sv <- art_SVD[[2]]
 			art_ev <- art_sv^2
 			art_expl_inertia <- (art_ev/sum(art_ev)) *100
 				
@@ -492,17 +500,20 @@ server <- function(input, output,session) {
 			  P <- expr_data()/sum(expr_data())         # proportions matrix
 			  p_i_plus <- rowSums(P)                    # row masses
 			  
-			  standard_coordinates_rows <- sweep(SVD()$u[,1:input$num_dims], 1, sqrt(p_i_plus), "/")
-			  principal_coordinates_rows <- sweep(standard_coordinates_rows, 2, SVD()$d[1:input$num_dims], "*")
+			# standard_coordinates_rows <- sweep(SVD()$u[,1:input$num_dims], 1, sqrt(p_i_plus), "/")
+			  standard_coordinates_rows <- sweep(SVD()[[1]][,1:input$num_dims], 1, sqrt(p_i_plus), "/")
+			# principal_coordinates_rows <- sweep(standard_coordinates_rows, 2, SVD()$d[1:input$num_dims], "*")
+			  principal_coordinates_rows <- sweep(standard_coordinates_rows, 2, SVD()[[2]][1:input$num_dims], "*")
 			  genes <- t(principal_coordinates_rows)
 		})
 			  
 		# calculate standard coordinates of samples (depending on chosen number of dimensions)
 		samples <- reactive({
 			  P <- expr_data()/sum(expr_data())             # proportions matrix
-			  p_plus_j <- colSums(P)                    # column masses
+			  p_plus_j <- colSums(P)                    	# column masses
 			  
-			  standard_coordinates_cols <- sweep(SVD()$v[,1:input$num_dims], 1, sqrt(p_plus_j), "/")
+			# standard_coordinates_cols <- sweep(SVD()$v[,1:input$num_dims], 1, sqrt(p_plus_j), "/")
+			  standard_coordinates_cols <- sweep(SVD()[[3]][,1:input$num_dims], 1, sqrt(p_plus_j), "/")
 			  samples <- t(standard_coordinates_cols)
 		})
 
@@ -642,17 +653,113 @@ server <- function(input, output,session) {
 		})
 
 		
+		
+  # -------------------------------------------------------------------------------------------   
+  ## calculate angle cutoff - to find significant genes and calculate their condition-specificity scores	
+
+	cutoff_cotan <- reactive({  
+		
+		if (is.null(which_samples()))
+			return(NULL)
+
+		# 10 permuted data (permutations per row) ==> SVD ==> gene coordinates in permuted Association Plot
+		for (k in 1:10) {
+				
+			cut_expr_data <- t(apply(expr_data(), 1, FUN=sample))
+
+			cut_P <- cut_expr_data/sum(cut_expr_data)
+			cut_p_i_plus <- rowSums(cut_P)                    # row masses
+			cut_p_plus_j <- colSums(cut_P)                    # column masses
+				
+			cut_E <- cut_p_i_plus %o% cut_p_plus_j            # expected proportions
+				
+			cut_Z <-  (cut_P - cut_E) / sqrt(cut_E)           # standardized residuals
+			cut_Z[is.nan(cut_Z)] <- 0
+		#	cut_SVD <- svd(cut_Z)
+			cut_SVD <- svd_torch(cut_Z)
+				
+		  # calculate principal coordinates of genes (depending on chosen number of dimensions)
+			
+			#cut_standard_coordinates_rows <- sweep(cut_SVD$u[,1:input$num_dims], 1, sqrt(cut_p_i_plus), "/")
+			cut_standard_coordinates_rows <- sweep(cut_SVD[[1]][,1:input$num_dims], 1, sqrt(cut_p_i_plus), "/")
+			#cut_principal_coordinates_rows <- sweep(standard_coordinates_rows, 2, cut_SVD$d[1:input$num_dims], "*")
+			cut_principal_coordinates_rows <- sweep(cut_standard_coordinates_rows, 2, cut_SVD[[2]][1:input$num_dims], "*")
+			cut_genes <- t(cut_principal_coordinates_rows)
+
+			  
+		  # calculate standard coordinates of samples (depending on chosen number of dimensions)
+			
+			#cut_standard_coordinates_cols <- sweep(cut_SVD$v[,1:input$num_dims], 1, sqrt(cut_p_plus_j), "/")
+			cut_standard_coordinates_cols <- sweep(cut_SVD[[3]][,1:input$num_dims], 1, sqrt(cut_p_plus_j), "/")
+			cut_samples <- t(cut_standard_coordinates_cols)
+	
+	
+		  # calculate average coordinates of chosen samples
+			#if (is.null(which_samples()))
+			#	return(NULL)
+			cut_avg_sample_coord <- rep(4,0)
+			for(j in 1:input$num_dims){
+				cut_avg_sample_coord[j] <- 0
+				for(i in 1:length(which_samples())){
+					temp_index <- which_samples()[i]
+					cut_avg_sample_coord[j] <- cut_avg_sample_coord[j] + cut_samples[j,temp_index-1]
+				}
+				cut_avg_sample_coord[j] <- cut_avg_sample_coord[j] / length(which_samples())
+			}  
+			
+			
+		  # calculate length_vector_sample (the distance from the origin to the "average" sample)
+			cut_length_vector_sample <- 0
+			for(j in 1:input$num_dims){
+				cut_length_vector_sample <- cut_length_vector_sample + cut_avg_sample_coord[j]^2
+			}
+			cut_length_vector_sample <- sqrt(cut_length_vector_sample)
+	  
+		  # calculate coordinates of genes in Association Plot (for chosen samples)
+			cut_G_coordinates_sincos <-  matrix(0,3,ncol(cut_genes))              # contains coordinates for Association Plot - first row is x, second row is y, third row is gene ranking
+			for(gene_nr in 1:ncol(cut_genes)){
+				tmp <- 0
+				cut_length_vector_gene <- 0
+				for(j in 1:input$num_dims){
+					tmp <- tmp + cut_avg_sample_coord[j] * cut_genes[j,gene_nr]                           # multiplication of two vectors - avg_sample and gene
+					cut_length_vector_gene <- cut_length_vector_gene + (cut_genes[j,gene_nr]^2)
+				}
+				cut_length_vector_gene <- sqrt(cut_length_vector_gene)
+				cut_G_coordinates_sincos[1,gene_nr] <- tmp / cut_length_vector_sample                                         # coordinate x for given gene
+				cut_G_coordinates_sincos[2,gene_nr] <- sqrt((cut_length_vector_gene ^2) - (cut_G_coordinates_sincos[1,gene_nr]^2))  # coordinate y for given gene
+			 }
+			 if(k == 1){
+				cut_G_coord = cut_G_coordinates_sincos
+			}else{
+				cut_G_coord = cbind(cut_G_coord, cut_G_coordinates_sincos)
+			}
+		}			
+			
+	    # calculate cutoff - 1% of genes with smallest angle (x/y)
+	    cut_G_coord[3,] = cut_G_coord[1,]/cut_G_coord[2,] 	   # calculate 3rd row - cotan of the angle between gene and x-axis (x/y value)
+	    angles_vector = sort(cut_G_coord[3,], decreasing = TRUE) # sort cotans descending 
+	    cutoff_cotan = angles_vector[ceiling(0.01 * length(angles_vector))] # 1% of number of genes (ceiling in case number of genes < 100), genes sorted in descending order ==> choose angle value for 1%-th gene
+		cutoff_cotan
+
+	})
+
+
+
 
 		# -------------------------------------------------------------------------------------------   
 		## output file 1 - ranking of the genes from the Association Plot	
 	
+ 
 		tmp_ranking <- reactive({
 			tmp_ranking = cbind(used_gene_names(),t(G_coordinates_sincos()))
-			head(tmp_ranking)
-			tmp_ranking=tmp_ranking[order(tmp_ranking[,4]),c(4,1)]
-			colnames(tmp_ranking)=c("Ranking","Gene_name")
-			
+			tmp_ranking[,5] = tmp_ranking[,2] - (tmp_ranking[,3] * cutoff_cotan()) # create 5th column with the gene score (cutoff_cotan - calculated cutoff with 1% genes from permuted data)
+			tmp_ranking = tmp_ranking[tmp_ranking[,5] > 0, ] # filter the table for genes with the score > 0 (genes located in the calculated cutoff angle)
+			tmp_ranking = tmp_ranking[order(-tmp_ranking[,5]),-4] 	# sort genes according to their score
+			colnames(tmp_ranking)=c("Gene_name","x-coordinate","y-coordinate","Gene_score")
+
+			head(tmp_ranking)	
 			tmp_ranking
+			
 		})
 	  
 		# Downloadable csv of the ranking
@@ -691,6 +798,7 @@ server <- function(input, output,session) {
 			)
 		})
 	 
+	 	 
 		## plot 2 - 3D subspace
 
 		output$plot3D <- renderPlotly({
@@ -699,7 +807,7 @@ server <- function(input, output,session) {
 				textposition = "left", marker = list(size = 2,  color = '#990000', symbol = 'x'), name = 'samples', hoverinfo = 'text', type = 'scatter3d'
 			) %>%
 			add_trace(x = genes()[1,], y = genes()[2,], z = genes()[3,], mode = 'markers', text = paste(used_gene_names_list()), opacity = 0.7,
-				marker = list(size = 1, color ='#0066FF', symbol = 'circle-open'), name = 'genes', hoverinfo = 'text', type = 'scatter3d'
+				marker = list(size = 1, color ='#0066FF', symbol = 'circle'), name = 'genes', hoverinfo = 'text', type = 'scatter3d'
 			) %>%
 			add_trace(x = genes()[1,hl_genes()], y = genes()[2,hl_genes()], z = genes()[3,hl_genes()], mode = 'markers+text',
 				text = paste(used_gene_names_list()[hl_genes()]), textposition = "left", textfont=list(color='#FF0000'),
@@ -732,7 +840,7 @@ server <- function(input, output,session) {
 					get_gene_idx <- intersect(get_gene_idx_x, get_gene_idx_y)
 					bar_x <- expr_data()[get_gene_idx,]
 					if(length(get_gene_idx)>0){
-						plot_ly(x = bar_x, y = all_sample_names(), type = 'bar', orientation = 'h', height=length(header())*12) %>%
+						plot_ly(x = bar_x, y = all_sample_names(), type = 'bar', orientation = 'h', height=length(header())*20) %>%
 						layout(title = used_gene_names_list()[get_gene_idx],
 						yaxis = list(categoryorder = "array",categoryarray = all_sample_names(), tickmode = 'linear'))
 					}
@@ -759,6 +867,12 @@ server <- function(input, output,session) {
 		    add_trace(x = G_coordinates_sincos()[1,], y = G_coordinates_sincos()[2,], mode = 'markers', text = paste(used_gene_names_list()),
 		              opacity = 0.7, marker = list(color ='#0066FF', symbol = 'circle-open', size = 2.5), name = 'genes', hoverinfo = 'text', type = 'scatter'
 		    ) %>%
+		    # green dots - genes with score > 0
+	#	    add_trace(x = tmp_ranking()[,2], y = tmp_ranking()[,3], mode = 'markers',
+	#			text = paste(tmp_ranking()[,1]),# textposition = "left", textfont=list(color='#009933'),
+	#			marker = list(symbol = 'circle-open', color ='#009933', size = 2.5),
+	#			name = 'significant genes', hoverinfo = 'text', type = 'scatter'
+	#		) %>%
 		    # add blue dots - highlighted genes
 		    add_trace(x = G_coordinates_sincos()[1,hl_genes()], y = G_coordinates_sincos()[2,hl_genes()], mode = 'markers+text',
 		              text = paste(used_gene_names_list()[hl_genes()]), textposition = "left", textfont=list(color='#FF0000'),
@@ -772,7 +886,7 @@ server <- function(input, output,session) {
 			
 			if(input$which_conditions_to_highlight == 1){
 			  
-			  # add red crosses - chosen samples
+			  # add red crosses - chosen samples    #e60000
 			    associationplot <- add_trace(associationplot, x =  S_coordinates_sincos()[1,which_samples()-1], y =  S_coordinates_sincos()[2,which_samples()-1], mode = 'markers',
 			    text = paste(used_sample_names()), textposition = "left",
 			    marker = list(color = '#e60000', symbol = 'x', size = 6), name = 'samples', hoverinfo = 'text', type = 'scatter')
@@ -780,12 +894,12 @@ server <- function(input, output,session) {
 			}else{
 			    if(input$which_conditions_to_highlight == 2){
 			  
-			      # add green crosses - all other samples
+			      # add green crosses - all other samples   #008000
 			       associationplot <- add_trace(associationplot, x =  S_coordinates_sincos()[1,which_samples_not_chosen()-1], y =  S_coordinates_sincos()[2,which_samples_not_chosen()-1], mode = 'markers',
 			       text = paste(NOT_used_sample_names()), textposition = "left",
 			       marker = list(color = '#008000', symbol = 'x', size = 6), name = 'samples', hoverinfo = 'text', type = 'scatter')
 
-			       # add red crosses - chosen samples
+			       # add red crosses - chosen samples  #e60000
 			       associationplot <- add_trace(associationplot, x =  S_coordinates_sincos()[1,which_samples()-1], y =  S_coordinates_sincos()[2,which_samples()-1], mode = 'markers',
 			       text = paste(used_sample_names()), textposition = "left",
 			       marker = list(color = '#e60000', symbol = 'x', size = 6), name = 'samples', hoverinfo = 'text', type = 'scatter')
@@ -822,7 +936,7 @@ server <- function(input, output,session) {
 					get_gene_idx <- intersect(get_gene_idx_x, get_gene_idx_y)
 					bar_x <- expr_data()[get_gene_idx,]
 					if(length(get_gene_idx)>0){
-						plot_ly(x = bar_x, y = all_sample_names(), type = 'bar', orientation = 'h', height=length(header())*12) %>%
+						plot_ly(x = bar_x, y = all_sample_names(), type = 'bar', orientation = 'h', height=length(header())*20) %>%
 						layout(title = used_gene_names_list()[get_gene_idx],
 						yaxis = list(categoryorder = "array",categoryarray = all_sample_names(), tickmode = 'linear'))
 					}
