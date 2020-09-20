@@ -26,7 +26,7 @@
   - `org.Hs.eg.db`
   - `org.Mm.eg.db`
   
- Also, please make sure that **Python** and two following Python libraries are installed on your machine:
+ Also, please make sure that **Python** and two following **Python libraries** are installed on your machine:
   - `numpy`
   - `torch`
  
